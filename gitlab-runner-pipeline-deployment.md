@@ -1,4 +1,4 @@
-# Setting Up GitLab Runner
+# GitLab Runner Pipeline Deployment
 
 ## Prerequisits
 
@@ -131,3 +131,9 @@ deploy: # Job to deploy to deployment container
 You need to change the access pattern of the `SSH_PRIVATE_KEY_DEPLOYMENT` file because GitLab adds too loose access to the file (you can check the access pattern of your local SSH key file by running `ls -l ~/.ssh/id_rsa` ). We need to add a `before_script` to the yml file and change the permission to a stricter permission.
 
 We need to add the `StrictHostKeyChecking=no` option so that it skips the part where the console asks the user if he wants to add the fingerprint to known hosts.
+
+## Resources
+
+- [Install GitLab Runner](https://docs.gitlab.com/runner/install/linux-repository.html)
+- [Register GitLab Runner](https://docs.gitlab.com/runner/register/index.html)
+- [Pipeline with GitLab CI/CD](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-continuous-deployment-pipeline-with-gitlab-on-ubuntu)
