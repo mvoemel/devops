@@ -27,3 +27,7 @@ If you don’t want the Dock to jump out but do want it to slide out more quickl
 4. Quit Terminal.
 
 You can replace ‘0.15’ in the command above with any number you choose. So, if you want to make it slide out even more quickly, you can make it lower. Experiment and choose a speed that works for you.
+
+## SSH
+
+SSH config is saved in the `<USERNAME>/.ssh/known_hosts` file
