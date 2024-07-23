@@ -6,6 +6,12 @@
 docker run -d -p [LOCAL_MACHINE_PORT]:[DOCKER_CONTAINER_PORT] --name [CONTAINER_NAME] -e [ENV_VAR_KEY]=[ENV_VAR_VALUE] [IMAGE_NAME]
 ```
 
+- Overide the default command:
+
+```bash
+docker run -it [IMAGE_ID_OR_IMAGE_TAG] [CMD]
+```
+
 - Check all containers:
 
 ```bash
