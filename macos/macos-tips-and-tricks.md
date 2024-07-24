@@ -31,3 +31,7 @@ You can replace ‘0.15’ in the command above with any number you choose. So, 
 ## SSH
 
 SSH config is saved in the `<USERNAME>/.ssh/known_hosts` file
+
+## Hosts
+
+Local Hosts Database: `/etc/hosts`. Here are all host ip adresses saved like **localhost**, **broadcasthost**, ...
