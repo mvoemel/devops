@@ -41,3 +41,15 @@ docker rm -v $(docker ps --filter status=exited -q)
 ```bash
 docker image rm yourimage:yourtag
 ```
+
+- Run a command inside a docker container:
+
+```bash
+docker exec -it [CONTAINER_ID] [COMMAND]
+```
+
+- Open a shell inside a docker container:
+
+```bash
+docker exec -it [CONTAINER_ID] sh
+```
