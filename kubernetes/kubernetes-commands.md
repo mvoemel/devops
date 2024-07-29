@@ -78,3 +78,35 @@ Types of services in kubernetes:
 ```bash
 kubectl get services
 ```
+
+- Get all services inside of a specific namespace:
+
+```bash
+kubectl get services -n [NAMESPACE]
+```
+
+## Secrets
+
+- Create a secret:
+
+```bash
+kubectl create secret generic [SECRET_NAME] --from-literal=YOUR_ENV_VARIABLE=your-env-value
+```
+
+- Get all secrets:
+
+```bash
+kubectl get secrets
+```
+
+## Namespaces
+
+- Get all namespaces:
+
+```bash
+kubectl get namespace
+```
+
+To reach another service in another namespace use `http://[NAME_OF_SERVICE].[NAME_OF_NAMESPACE].svc.cluster.local`
+
+Alternatively you can use an **External Name Service** to route the the domains without using such a complicated domain like it is displayed above.
