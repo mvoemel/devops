@@ -10,7 +10,7 @@ Got to `Settings > Applications > Manage Access Tokens > Generate New Token` and
 
 Create a `.npmrc` file in the same directory in which your Git Repository is present of your package.
 
-Insert the following two lines into this file. Replace `YOUR_ACCESS_TOKEN` with the access token you obtained in the previous step.
+Insert the following two lines into this file. Replace `YOUR_ACCESS_TOKEN` with the access token you obtained in the previous step. Replace `your-gitea-instance.com` with your Gitea instance domain address.
 
 ```bash
 @helloworld:registry=https://your-gitea-instance.com/api/packages/{owner}/npm/
@@ -40,7 +40,7 @@ npm publish --registry https://your-gitea-instance.com/api/packages/{owner}/npm/
 To install your published package first add the following to your `.npmrc` file in your project.
 
 ```bash
-@helloworld:registry=https://git.titanion.ch/api/packages/mvoemel/npm/
+@helloworld:registry=https://your-gitea-instance.com/api/packages/mvoemel/npm/
 ```
 
 Then you can install it in your project using the following command:
