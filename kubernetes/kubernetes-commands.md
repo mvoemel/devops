@@ -110,3 +110,15 @@ kubectl get namespace
 To reach another service in another namespace use `http://[NAME_OF_SERVICE].[NAME_OF_NAMESPACE].svc.cluster.local`
 
 Alternatively you can use an **External Name Service** to route the the domains without using such a complicated domain like it is displayed above.
+
+## Forward a Port
+
+```bash
+kubectl port-forward [YOUR_POD] [LOCAL_MACHINE_PORT]:[POD_PORT]
+```
+
+Example:
+
+```bash
+kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
+```
