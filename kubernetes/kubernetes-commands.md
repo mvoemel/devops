@@ -122,3 +122,19 @@ Example:
 ```bash
 kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
 ```
+
+## Context
+
+You can use several contexts. For example one for your local development and one for your deployment which is hosted on a seperate machine, you only connect to it.
+
+- List all contexts:
+
+```bash
+kubectl config view
+```
+
+- Use a different context:
+
+```bash
+kubectl config use-context [YOUR_CONTEXT_NAME]
+```
