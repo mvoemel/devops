@@ -1,0 +1,16 @@
+# This is a comment.
+
+# Each line is a file pattern followed by one or more owners.
+
+# Specify the owner for the entire repository
+
+- @your-username
+
+# Owners for specific directories
+
+/docs/ @docs-maintainer
+/src/ @dev-team @senior-dev
+
+# Owners for specific files
+
+README.md @docs-maintainer
