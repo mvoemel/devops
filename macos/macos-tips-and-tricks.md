@@ -22,7 +22,14 @@ Now, test it by moving the mouse pointer over the bottom or edge of the screen. 
 If you don’t want the Dock to jump out but do want it to slide out more quickly, you can also do that with a Terminal command.
 
 1. Open Terminal.
-2. Type `defaults write com.apple.dock autohide-time-modifier -float 0.15; killall Dock`
+2. Type:
+
+```bash
+  defaults write com.apple.dock autohide-delay -int 0
+  defaults write com.apple.dock autohide-time-modifier -float 0.45
+  killall Dock
+```
+
 3. Press Return.
 4. Quit Terminal.
 
@@ -35,3 +42,7 @@ SSH config is saved in the `<USERNAME>/.ssh/known_hosts` file
 ## Hosts
 
 Local Hosts Database: `/etc/hosts`. Here are all host ip adresses saved like **localhost**, **broadcasthost**, ...
+
+```
+
+```
