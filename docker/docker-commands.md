@@ -53,3 +53,19 @@ docker exec -it [CONTAINER_ID] [COMMAND]
 ```bash
 docker exec -it [CONTAINER_ID] sh
 ```
+
+- Edit a file inside a docker container:
+
+```bash
+docker exec -it [CONTAINER_ID] sh
+cd [DIRECTORY]
+cat [FILE]
+# Copy the contents
+cat > [FILE]
+# Paste the contents
+# Add the content you want to add to the file
+# Leave a new line at the end of the file
+# ctrl-c / (better: ctrl-d)
+cat [FILE]
+# Control if the changes have been updated successfully
+```
