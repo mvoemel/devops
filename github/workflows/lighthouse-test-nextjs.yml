@@ -1,0 +1,96 @@
+name: Lighthouse Testing
+
+on:
+  workflow_dispatch:
+    inputs:
+      pages_to_test:
+        description: 'Pages to test (comma-separated paths, e.g., "/,/en,/en/about")'
+        required: true
+        default: "/"
+      lighthouse_categories:
+        description: "Lighthouse categories to analyze"
+        required: true
+        default: "performance,accessibility,best-practices,seo"
+        type: choice
+        options:
+          - "performance"
+          - "accessibility"
+          - "best-practices"
+          - "seo"
+          - "performance,accessibility"
+          - "performance,accessibility,best-practices,seo"
+
+jobs:
+  lighthouse_audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js application
+        run: npm run build
+
+      - name: Start Next.js server
+        run: |
+          npm run start & 
+          echo "APP_PID=$!" >> $GITHUB_ENV
+          # Wait for server to be ready
+          sleep 15
+
+      - name: Parse input pages
+        id: parse_pages
+        run: |
+          echo "PAGES=$(echo '${{ github.event.inputs.pages_to_test }}' | tr ',' ' ')" >> $GITHUB_ENV
+
+      - name: Run Lighthouse audits
+        uses: treosh/lighthouse-ci-action@v10
+        id: lighthouse_audit
+        with:
+          urls: |
+            http://localhost:3000${{ env.PAGES }}
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          configPath: "./.github/lighthouse-config.json"
+          runs: 3
+
+      - name: Generate performance report
+        run: |
+          echo "# Performance Test Results" > performance-report.md
+          echo "" >> performance-report.md
+          echo "Tests ran on: $(date)" >> performance-report.md
+          echo "" >> performance-report.md
+          echo "| Page | Performance | Accessibility | Best Practices | SEO |" >> performance-report.md
+          echo "| ---- | ----------- | ------------- | -------------- | --- |" >> performance-report.md
+
+          for PAGE in $PAGES; do
+            # Extract metrics from the lighthouse results
+            PERF=$(jq '.summary["performance"] * 100' ${{ steps.lighthouse_audit.outputs.resultsPath }}/localhost_3000${PAGE//\//_}*/summary.json | xargs printf "%.0f")
+            ACC=$(jq '.summary["accessibility"] * 100' ${{ steps.lighthouse_audit.outputs.resultsPath }}/localhost_3000${PAGE//\//_}*/summary.json | xargs printf "%.0f")
+            BP=$(jq '.summary["best-practices"] * 100' ${{ steps.lighthouse_audit.outputs.resultsPath }}/localhost_3000${PAGE//\//_}*/summary.json | xargs printf "%.0f")
+            SEO=$(jq '.summary["seo"] * 100' ${{ steps.lighthouse_audit.outputs.resultsPath }}/localhost_3000${PAGE//\//_}*/summary.json | xargs printf "%.0f")
+            
+            echo "| $PAGE | $PERF | $ACC | $BP | $SEO |" >> performance-report.md
+          done
+
+          echo "" >> performance-report.md
+          echo "Full report: ${{ steps.lighthouse_audit.outputs.links }}" >> performance-report.md
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-report
+          path: performance-report.md
+
+      - name: Kill Next.js server
+        if: always()
+        run: kill $APP_PID
