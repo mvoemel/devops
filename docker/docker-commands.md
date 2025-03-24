@@ -69,3 +69,10 @@ cat > [FILE]
 cat [FILE]
 # Control if the changes have been updated successfully
 ```
+
+- Prune the docker system:
+
+```bash
+docker compose down
+docker system prune -a
+```
