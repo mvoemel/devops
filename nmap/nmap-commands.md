@@ -4,25 +4,34 @@ NMAP is a network mapping tool used to search for vulnerabilities on a specific 
 
 ## Installation
 
-Install `nmap` on a linux server outside of the network you want to test for vulnerabilities:
-
 ```bash
-apt install nmap -y
+sudo apt install nmap -y   # Debian/Ubuntu
+brew install nmap          # macOS
 ```
 
 ## Commands
 
-- To scan all Ports:
-
 ```bash
-nmap -sT YOUR.PUBLIC.IP.ADDRESS
+# Basic ping scan - find all active hosts
+nmap -sn 192.168.1.0/24
+
+# Detailed scan - OS detection, services, versions
+sudo nmap -A 192.168.1.0/24
+
+# Quick scan of most common ports
+nmap -F 192.168.1.0/24
+
+# Scan and show MAC addresses + vendor info
+sudo nmap -sn --min-rate=300 192.168.1.0/24
+
+# Scan all ports for a specific ip
+nmap -sT 192.168.1.69
+
+# Scan known vulnerabilities for a specific ip
+nmap --script vuln 192.168.1.69
 ```
 
-- To scan for known Vulnerabilities:
-
-```bash
-nmap --script vuln YOUR.PUBLIC.IP.ADDRESS
-```
+_Note: Replace `192.168.1.0/24` with your actual subnet and `192.168.1.69` with the ip address of the device you want to test._
 
 ## Further Vulnerability Analysis Tools
 
